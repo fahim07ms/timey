@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./styles/App.css";
+import Stopwatch from "./components/Stopwatch";
+import Timestamp from "./components/TImestamps";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [timestamps, setTimestamps] = useState([]);
+
+    useEffect(() => {
+      const items = [];
+      for (let i = 1; i <= localStorage.length; i++)
+      {
+        items.push({id: i, time: localStorage.getItem(i)});
+      }
+
+      setTimestamps(items);
+    }, []);
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Stopwatch storageItems={timestamps} setStorageItems={setTimestamps} />
+
+      <div className="timeStamps">
+        {timestamps.map(timestamp => {
+          return <Timestamp key={timestamp.id} id={timestamp.id} time={timestamp.time} />
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
