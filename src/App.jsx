@@ -4,28 +4,22 @@ import Timestamp from "./components/TImestamps";
 import { useState, useEffect } from "react";
 
 function App() {
-    // Local Storage based Timestamp useState
-    const [timestamps, setTimestamps] = useState([]);
-    
-    // Iterating through the timestamps and pushing them in the array
-    useEffect(() => {
-      const items = [];
-      for (let i = 1; i <= localStorage.length; i++)
-      {
-        items.push({id: i, time: localStorage.getItem(i)});
-      }
-
-      setTimestamps(items);
-    }, []);
-
+  // Local Storage based Timestamp useState
+  const [timestamps, setTimestamps] = useState([]);
 
   return (
     <>
       <Stopwatch storageItems={timestamps} setStorageItems={setTimestamps} />
 
       <div className="timeStamps">
-        {timestamps.map(timestamp => {
-          return <Timestamp key={timestamp.id} id={timestamp.id} time={timestamp.time} />
+        {timestamps.map((timestamp) => {
+          return (
+            <Timestamp
+              key={timestamp.id}
+              id={timestamp.id}
+              time={timestamp.time}
+            />
+          );
         })}
       </div>
     </>

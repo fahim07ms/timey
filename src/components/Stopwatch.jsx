@@ -15,7 +15,7 @@ function Stopwatch({ storageItems, setStorageItems }) {
   const [second, setSecond] = useState(0);
   const [miliSec, setMiliSec] = useState(0);
   const [startTime, setStartTime] = useState(0);
-  const [timerId, setTimerId] = useState(localStorage.length + 1);
+  const [timerId, setTimerId] = useState(1);
 
   // Button state
   const [isStarted, setIsStarted] = useState(false);
@@ -31,7 +31,7 @@ function Stopwatch({ storageItems, setStorageItems }) {
 
   useEffect(() => {
     let timeInterval = null;
-  
+
     // When the timer button is hit get how much time is elapsed and then show the formatted time
     if (isStarted) {
       timeInterval = setInterval(() => {
@@ -59,17 +59,20 @@ function Stopwatch({ storageItems, setStorageItems }) {
     }
     // If timer started
     else {
-      localStorage.setItem(
-        `${timerId}`,
-        `${minuteFormat.format(minute)}:${second
-          .toString()
-          .padStart(2, "0")}:${miliSec.toString().padStart(2, "0").slice(0, 2)}`
-      );
+      //   localStorage.setItem(
+      //     `${timerId}`,
+      //     `${minuteFormat.format(minute)}:${second
+      //       .toString()
+      //       .padStart(2, "0")}:${miliSec.toString().padStart(2, "0").slice(0, 2)}`
+      //   );
 
       // Push Item To The The array
       const items = [
         ...storageItems,
-        { id: timerId, time: localStorage.getItem(timerId) },
+        {
+          id: timerId,
+          time: `${minuteFormat.format(minute)}:${second.toString().padStart(2, "0")}:${miliSec.toString().padStart(2, "0").slice(0, 2)}`,
+        },
       ];
 
       setStorageItems(items);
