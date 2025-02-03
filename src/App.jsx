@@ -4,8 +4,10 @@ import Timestamp from "./components/TImestamps";
 import { useState, useEffect } from "react";
 
 function App() {
+    // Local Storage based Timestamp useState
     const [timestamps, setTimestamps] = useState([]);
-
+    
+    // Iterating through the timestamps and pushing them in the array
     useEffect(() => {
       const items = [];
       for (let i = 1; i <= localStorage.length; i++)

@@ -31,7 +31,8 @@ function Stopwatch({ storageItems, setStorageItems }) {
 
   useEffect(() => {
     let timeInterval = null;
-
+  
+    // When the timer button is hit get how much time is elapsed and then show the formatted time
     if (isStarted) {
       timeInterval = setInterval(() => {
         const elapsedTime = new Date().getTime() - startTime;
@@ -39,6 +40,7 @@ function Stopwatch({ storageItems, setStorageItems }) {
       }, 1);
     }
 
+    // Clear the interval when changed
     return () => {
       if (timeInterval) {
         clearInterval(timeInterval);
